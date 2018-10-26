@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProyectoGZH"
+             Title="Buscar Información de Películas"
+             x:Name="MainPage"
+             x:Class="ProyectoGZH.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:PrincipalViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout Spacing="15">
+        <StackLayout.Padding>
+            <OnPlatform Android="10" iOS="20,30,20,20" x:TypeArguments="Thickness"/>
+        </StackLayout.Padding>
+        <Label Text="Buscar Películas, Series, etc." FontSize="Large" FontAttributes="Bold,Italic" HorizontalOptions="FillAndExpand"
+           HorizontalTextAlignment="Center" TextColor="DarkGreen"/>
+        <Entry Placeholder="Por favor digitar el dato asociado al criterio de búsqueda"
+           Text="{Binding Buscar}"/>
+        <Button Text="Buscar" 
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="Gray"
+            Command="{Binding SearchCommand}"
+            TextColor="White"/>
+        <ListView VerticalOptions="FillAndExpand"
+              ItemsSource="{Binding Resultado}"
+              HasUnevenRows="False"
+              RowHeight="100"
+              ItemTapped="ListView_OnItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="15">
+                            <StackLayout Orientation="Vertical" Padding="10">
+                                <Label Text="{Binding Title}" FontSize="Medium" VerticalTextAlignment="Start" VerticalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Year, StringFormat='Año: {0}'}" FontSize="Small" />
+                                <Label Text="{Binding Type, StringFormat='Tipo: {0}'}" FontSize="Small" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
